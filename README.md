@@ -1,2 +1,2 @@
 # neuralnetlib
-A minimal machine learning library developed in c++ aimed at doing both reinforcement learning and genetic algorithm.
+neuralnetlib is a lightweight C++ library designed for performing both reinforcement learning and genetic algorithm tasks.
