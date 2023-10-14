@@ -67,5 +67,6 @@
         "__bits": "cpp",
         "numeric": "cpp",
         "random": "cpp"
-    }
+    },
+    "C_Cpp.default.compilerPath": "/usr/bin/clang++"
 }

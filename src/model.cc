@@ -26,7 +26,7 @@ model::model(uint32_t numlayers, u_int32_t* layersizes) : numlayers(numlayers) {
 
 void model::initWeights(void (*init)(matrix* m, uint32_t seed), u_int32_t seed) {
     for(int i = 0; i < numlayers - 1; i++) {
-        init(&weights[i], seed);
+        init(&weights[i], seed + i);
     }
 }
 
@@ -39,10 +39,15 @@ void model::evaluate(double (*activation)(double z, double a)) {
     }
 }
 
-void model::setInput(vector* input) {
-    layers[0] = *input;
+bool model::setInput(vector* input) {
+    if(input -> size == layers[0].size) {
+        layers[0] = *input;
+        return true;
+    }
+
+    return false;
 }
 
-void model::getOutput(vector* output) {
+void model::getOutput(vector*& output) {
     output = &layers[numlayers - 1];
 }

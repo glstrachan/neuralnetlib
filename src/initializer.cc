@@ -13,7 +13,7 @@ void randomInit(matrix* m, uint32_t seed) {
 
 void XGInit(matrix* m, uint32_t seed) {
     std::mt19937 rng(seed);
-    std::normal_distribution<double> dist(0, std::sqrt(1 / m -> sizex));
+    std::normal_distribution<double> dist(0, std::sqrt(1.0 / m -> sizex));
 
     for(int x = 0; x < m -> sizex; x++) {
         for(int y = 0; y < m -> sizey; y++) {
@@ -24,7 +24,7 @@ void XGInit(matrix* m, uint32_t seed) {
 
 void HeInit(matrix* m, uint32_t seed) {
     std::mt19937 rng(seed);
-    std::normal_distribution<double> dist(0, std::sqrt(2 / m -> sizex));
+    std::normal_distribution<double> dist(0, std::sqrt(2.0 / m -> sizex));
 
     for(int x = 0; x < m -> sizex; x++) {
         for(int y = 0; y < m -> sizey; y++) {
