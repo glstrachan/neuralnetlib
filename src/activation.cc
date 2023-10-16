@@ -1,5 +1,8 @@
 #include "activation.hh"
 
+activationType::activationType(double a, double (*activation)(double z, double a), double (*activationPrime)(double z, double a)) : 
+a(a), activation(activation), activationPrime(activationPrime) {}
+
 double sigmoid(double z, double a) {
     return 1.0 / (1.0 + std::exp(-z));
 }

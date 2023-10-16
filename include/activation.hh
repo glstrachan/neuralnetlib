@@ -2,6 +2,14 @@
 
 #include <cmath>
 
+struct activationType {
+    double a;
+    double (*activation)(double z, double a);
+    double (*activationPrime)(double z, double a);
+
+    activationType(double a, double (*activation)(double z, double a), double (*activationPrime)(double z, double a));
+};
+
 double sigmoid(double z, double a);
 double tanh(double z, double a);
 double ReLU(double z, double a);

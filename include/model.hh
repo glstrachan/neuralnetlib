@@ -5,7 +5,7 @@
 #include "activation.hh"
 
 struct model {
-    uint32_t numlayers;
+    uint32_t numLayers;
     vector* layers;
     matrix* weights;
     vector* biases;

@@ -1,6 +1,6 @@
 #include "model.hh"
 
-model::model(uint32_t numlayers, u_int32_t* layersizes) : numlayers(numlayers) {
+model::model(uint32_t numlayers, u_int32_t* layersizes) : numLayers(numlayers) {
     layers = (vector*)malloc(numlayers * sizeof(vector));
     weights = (matrix*)malloc((numlayers - 1) * sizeof(matrix));
     biases = (vector*)malloc((numlayers - 1) * sizeof(vector));
@@ -31,7 +31,7 @@ model::model(uint32_t numlayers, u_int32_t* layersizes) : numlayers(numlayers) {
 }
 
 void model::initWeights(void (*init)(matrix* m, uint32_t seed), u_int32_t seed) {
-    for(int i = 0; i < numlayers - 1; i++) {
+    for(int i = 0; i < numLayers - 1; i++) {
         init(&weights[i], seed + i);
     }
 }
@@ -39,7 +39,7 @@ void model::initWeights(void (*init)(matrix* m, uint32_t seed), u_int32_t seed) 
 void model::initBiases() {}
 
 void model::evaluate(double (*activation)(double z, double a)) {
-    for(int i = 1; i < numlayers; i++) {
+    for(int i = 1; i < numLayers; i++) {
          multiply(&weights[i - 1], &layers[i - 1], &layers[i]);
 
          for(int j = 0; j < layers[i].size; j++) {
@@ -58,5 +58,5 @@ bool model::setInput(vector* input) {
 }
 
 void model::getOutput(vector*& output) {
-    output = &layers[numlayers - 1];
+    output = &layers[numLayers - 1];
 }
