@@ -3,6 +3,7 @@
 model::model(uint32_t numlayers, u_int32_t* layersizes) : numlayers(numlayers) {
     layers = (vector*)malloc(numlayers * sizeof(vector));
     weights = (matrix*)malloc((numlayers - 1) * sizeof(matrix));
+    biases = (vector*)malloc((numlayers - 1) * sizeof(vector));
 
     for(int i = 0; i < numlayers; i++) {
         layers[i].size = layersizes[i];
@@ -22,6 +23,11 @@ model::model(uint32_t numlayers, u_int32_t* layersizes) : numlayers(numlayers) {
             weights[i].data[x] = (double*)calloc(sizey, sizeof(double));
         }
     }
+
+    for(int i = 0; i < numlayers - 1; i++) {
+        biases[i].size = layersizes[i + 1];
+        biases[i].data = (double*)calloc(layersizes[i + 1], sizeof(double));
+    }
 }
 
 void model::initWeights(void (*init)(matrix* m, uint32_t seed), u_int32_t seed) {
@@ -30,11 +36,14 @@ void model::initWeights(void (*init)(matrix* m, uint32_t seed), u_int32_t seed) 
     }
 }
 
+void model::initBiases() {}
+
 void model::evaluate(double (*activation)(double z, double a)) {
     for(int i = 1; i < numlayers; i++) {
          multiply(&weights[i - 1], &layers[i - 1], &layers[i]);
+
          for(int j = 0; j < layers[i].size; j++) {
-            layers[i].data[j] = activation(layers[i].data[j], 0.01);
+            layers[i].data[j] = activation(layers[i].data[j] + biases[i - 1].data[j], 0.01);
          }
     }
 }

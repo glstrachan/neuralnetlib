@@ -2,13 +2,11 @@
 #include <iostream>
 
 int main() {
-    uint32_t datasize = 4;
+    uint32_t datasize = 2;
     double* data = (double*)malloc(datasize * sizeof(double));
 
     data[0] = 0.1;
     data[1] = 0.2;
-    data[2] = 0.5;
-    data[3] = 0.2;
 
     vector v(datasize, data);
 
@@ -39,20 +37,21 @@ int main() {
         }
         std::cout << std::endl;
     }
-    std::cout << std::endl;
 
     m.setInput(&v);
 
-    m.evaluate(leakyReLU);
+    m.evaluate(sigmoid);
 
     vector* r = (vector*)malloc(sizeof(vector));
 
     m.getOutput(r);
 
-    std::cout << "\nOutput Layer\n";
+    std::cout << "Output Layer\n";
     for(int i = 0; i < r -> size; i++) {
         printf("%5.2f ", r -> data[i]);
     }
+
+    std::cout << std::endl;
 
     return 0;
 }
