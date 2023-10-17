@@ -11,7 +11,7 @@ bool trainingData::load(char* name) {
 
     uint32_t inputSize, outputSize;
 
-    if(fscanf(file, "%d%d%d", &size, &inputSize, &outputSize) == 0) {
+    if(fscanf(file, "%d%d%d", &size, &inputSize, &outputSize) == EOF) {
         return false;
     }
 
@@ -24,7 +24,7 @@ bool trainingData::load(char* name) {
         double* data = (double*)malloc(inputSize * sizeof(double));
 
         for(int j = 0; j < inputSize; j++) {
-            if(fscanf(file, "%lf", &data[j]) == 0) {
+            if(fscanf(file, "%lf", &data[j]) == EOF) {
                 return false;
             }
         }
@@ -39,13 +39,17 @@ bool trainingData::load(char* name) {
         double* data = (double*)malloc(outputSize * sizeof(double));
 
         for(int j = 0; j < outputSize; j++) {
-            if(fscanf(file, "%lf", &data[j]) == 0) {
+            if(fscanf(file, "%lf", &data[j]) == EOF) {
                 return false;
             }
         }
 
         output.data = data;
         outputs[i] = output;
+    }
+
+    if(fclose(file) != 0) {
+        return false;
     }
 
     return true;
