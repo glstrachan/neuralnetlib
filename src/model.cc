@@ -1,16 +1,16 @@
 #include "model.hh"
 
-model::model(uint32_t numlayers, u_int32_t* layersizes) : numLayers(numlayers) {
-    layers = (vector*)malloc(numlayers * sizeof(vector));
-    weights = (matrix*)malloc((numlayers - 1) * sizeof(matrix));
-    biases = (vector*)malloc((numlayers - 1) * sizeof(vector));
+model::model(uint32_t numLayers, u_int32_t* layersizes) : numLayers(numLayers) {
+    layers = (vector*)malloc(numLayers * sizeof(vector));
+    weights = (matrix*)malloc((numLayers - 1) * sizeof(matrix));
+    biases = (vector*)malloc((numLayers - 1) * sizeof(vector));
 
-    for(int i = 0; i < numlayers; i++) {
+    for(int i = 0; i < numLayers; i++) {
         layers[i].size = layersizes[i];
         layers[i].data = (double*)calloc(layersizes[i], sizeof(double));
     }
 
-    for(int i = 0; i < numlayers - 1; i++) {
+    for(int i = 0; i < numLayers - 1; i++) {
         uint32_t sizex = layersizes[i];
         uint32_t sizey = layersizes[i + 1];
 
@@ -24,7 +24,7 @@ model::model(uint32_t numlayers, u_int32_t* layersizes) : numLayers(numlayers) {
         }
     }
 
-    for(int i = 0; i < numlayers - 1; i++) {
+    for(int i = 0; i < numLayers - 1; i++) {
         biases[i].size = layersizes[i + 1];
         biases[i].data = (double*)calloc(layersizes[i + 1], sizeof(double));
     }
