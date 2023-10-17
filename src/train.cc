@@ -12,9 +12,29 @@ bool train(model* m, trainingData* data, activationType* a, uint32_t batchSize, 
 
         std::vector<std::vector<int>> miniBatches;
 
-        for(int j = 0; j < ceil((data -> size) / batchSize) * batchSize; j++) {
+        // Extra training data will be appended to other minibatches
+        uint32_t batches = (u_int32_t)std::floor((double)(data -> size) / (double)batchSize);
+        u_int32_t newBatchSize = (u_int32_t)std::floor((double)(data -> size) / (double)batches);
 
+        srand(seed);
+
+        for(int j = 0; j < batches; j++) {
+            std::vector<int> batchIndices;
+
+            if(j == batches - 1) { // Last miniBatch may have more
+                newBatchSize += (data -> size % newBatchSize); 
+            }
+
+            for(int k = 0; k < newBatchSize; k++) {
+                uint32_t r = rand() %  indices.size();
+                batchIndices.push_back(indices[r]);
+                indices.erase(indices.begin() + r);
+            }
+
+            miniBatches.push_back(batchIndices);
         }
+
+
     }
     // Divide up our indices into groups of size batchSize
 
@@ -25,5 +45,3 @@ bool train(model* m, trainingData* data, activationType* a, uint32_t batchSize, 
     // the (gradient / batchSize) is added to a model that represents the gradient from the minibatch
     // Every weight and bias is adjusted by the gradient * learning rate (or some combination of this)
 }
-
-void processBatch();
