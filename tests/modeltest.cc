@@ -27,15 +27,18 @@ int main() {
 
     m.initWeights(HeInit, 0);
 
+    char* name = "model.csv";
+    m.load(name);
+
     std::cout << "\n\nWeights\n";
     for(int i = 0; i < m.numLayers - 1; i ++) {
         for(int x = 0; x < m.weights[i].sizex; x++) {
             for(int y = 0; y < m.weights[i].sizey; y++) {
                printf("%5.2f ", m.weights[i].data[x][y]);
             }
-            std::cout << std::endl;
+            std::cout << "\n";
         }
-        std::cout << std::endl;
+        std::cout << "\n";
     }
 
     m.setInput(&v);
@@ -51,7 +54,9 @@ int main() {
         printf("%5.2f ", r -> data[i]);
     }
 
-    std::cout << std::endl;
+    std::cout << "\n";
+    
+    //std::cout << m.save(name) << "\n";
 
     return 0;
 }

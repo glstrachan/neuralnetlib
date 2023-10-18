@@ -78,19 +78,19 @@ bool model::save(char* name) {
         }
     }
 
-    if(fprintf(file, "\b\b\n\n") < 0) {
+    if(fprintf(file, "\n\n") < 0) {
         return false;
     }
 
     for(int i = 0; i < numLayers - 1; i++) {
         for(int j = 0; j < weights[i].sizex; j++) {
-            for(int k = 0; weights[i].sizey; k++) {
+            for(int k = 0; k < weights[i].sizey; k++) {
                 if(fprintf(file, "%lf, ", weights[i].data[j][k]) < 0) {
                     return false;
                 }
             }
 
-            if(fprintf(file, "\b\b\n") < 0) {
+            if(fprintf(file, "\n") < 0) {
                 return false;
             }
         }
@@ -107,7 +107,7 @@ bool model::save(char* name) {
             }
         }
 
-        if(fprintf(file, "\b\b\n\n") < 0) {
+        if(fprintf(file, "\n\n") < 0) {
             return false;
         }
     }
@@ -135,7 +135,7 @@ bool model::load(char* name) {
     uint32_t* layerSizes = (uint32_t*)malloc(newNumLayers * sizeof(u_int32_t));
 
     for(int i = 0; i < newNumLayers; i++) {
-        if(fscanf(file, "%d", &layerSizes[i]) == EOF) {
+        if(fscanf(file, "%d,", &layerSizes[i]) == EOF) {
             return false;
         }
     }
@@ -149,7 +149,7 @@ bool model::load(char* name) {
             data[j] = (double*)malloc(layerSizes[i + 1] * sizeof(double));
 
             for(int k = 0; k < layerSizes[i + 1]; k++) {
-                if(fscanf(file, "%lf", &data[j][k]) == EOF) {
+                if(fscanf(file, "%lf,", &data[j][k]) == EOF) {
                     return false;
                 }
             }
@@ -166,7 +166,7 @@ bool model::load(char* name) {
         double* data = (double*)malloc(layerSizes[i] * sizeof(double));
 
         for(int j = 0; j < layerSizes[i]; j++) {
-            if(fscanf(file, "%lf", &data[j]) == EOF) {
+            if(fscanf(file, "%lf,", &data[j]) == EOF) {
                 return false;
             }
         }
