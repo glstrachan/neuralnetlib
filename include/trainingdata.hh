@@ -9,6 +9,7 @@ struct trainingData {
     vector* outputs;
 
     trainingData(uint32_t size, vector* inputs, vector* outputs);
+    trainingData();
 
     // Data Scheme: 
     // First int: the number of sets of data

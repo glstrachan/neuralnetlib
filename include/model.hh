@@ -13,7 +13,7 @@ struct model {
     model(uint32_t numLayers, u_int32_t* layersizes);
 
     void initWeights(void (*init)(matrix* m, uint32_t seed), u_int32_t seed);
-    void initBiases(); // Currently we set all to 0 initially, so empty
+    void initBiases(double d); // Sets all biases to a value
 
     void evaluate(double (*activation)(double z, double a)); // a is an optional paramater
 

@@ -36,7 +36,13 @@ void model::initWeights(void (*init)(matrix* m, uint32_t seed), u_int32_t seed) 
     }
 }
 
-void model::initBiases() {}
+void model::initBiases(double d) {
+    for(int i = 0; i < numLayers - 1; i++) {
+        for(int j = 0; j < biases[i].size; j++) {
+            biases[i].data[j] = d;
+        }
+    }
+}
 
 void model::evaluate(double (*activation)(double z, double a)) {
     for(int i = 1; i < numLayers; i++) {

@@ -36,8 +36,8 @@ bool train(model* m, trainingData* data, activationType* a, uint32_t batchSize, 
 
         // Done making minibatches -> Start gradient descent
 
-        model grad = *m; // Using a model to represent the gradient for a batch
-        model subGrad = *m; // a gradient for a single training instance
+        gradient grad(m); // Using a model to represent the gradient for a batch
+        gradient subGrad = m; // a gradient for a single training instance
 
         // Calculate all sub gradients for a minibatch
         // Append them scaled to grad
@@ -46,6 +46,8 @@ bool train(model* m, trainingData* data, activationType* a, uint32_t batchSize, 
 
         for(int j = 0; j < batches; j++) {
             // Reset the gradient and subgradient to have all weights and biases 0
+            grad.reset();
+
             for(int k = 0; k < miniBatches[j].size(); k++) {
                 // Fill in the subGrad here
 

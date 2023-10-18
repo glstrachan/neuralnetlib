@@ -2,6 +2,7 @@
 
 #include "trainingdata.hh"
 #include "model.hh"
+#include "gradient.hh"
 
 #include <vector>
 #include <stdlib.h> 

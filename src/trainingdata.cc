@@ -1,6 +1,7 @@
 #include "trainingdata.hh"
 
 trainingData::trainingData(uint32_t size, vector* inputs, vector* outputs) : size(size), inputs(inputs), outputs(outputs) {}
+trainingData::trainingData() {}
 
 bool trainingData::load(char* name) {
     FILE* file = fopen(name, "r");
@@ -11,7 +12,7 @@ bool trainingData::load(char* name) {
 
     uint32_t inputSize, outputSize;
 
-    if(fscanf(file, "%d%d%d", &size, &inputSize, &outputSize) == EOF) {
+    if(fscanf(file, "%d %d, %d", &size, &inputSize, &outputSize) == EOF) {
         return false;
     }
 
@@ -24,7 +25,7 @@ bool trainingData::load(char* name) {
         double* data = (double*)malloc(inputSize * sizeof(double));
 
         for(int j = 0; j < inputSize; j++) {
-            if(fscanf(file, "%lf", &data[j]) == EOF) {
+            if(fscanf(file, "%lf,", &data[j]) == EOF) {
                 return false;
             }
         }
@@ -39,7 +40,7 @@ bool trainingData::load(char* name) {
         double* data = (double*)malloc(outputSize * sizeof(double));
 
         for(int j = 0; j < outputSize; j++) {
-            if(fscanf(file, "%lf", &data[j]) == EOF) {
+            if(fscanf(file, "%lf,", &data[j]) == EOF) {
                 return false;
             }
         }
