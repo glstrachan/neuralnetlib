@@ -13,3 +13,5 @@ struct gradient {
     void reset();
     bool addGrad(gradient* g, double scale);
 };
+
+bool addModelGradient(model* m, gradient* g, double rate);

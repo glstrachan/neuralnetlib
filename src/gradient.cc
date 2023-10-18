@@ -81,3 +81,40 @@ bool gradient::addGrad(gradient* g, double scale) {
 
     return true;
 }
+
+bool addModelGradient(model* m, gradient* g, double rate) {
+    if(m -> numLayers != g -> numLayers) {
+        return false;
+    }
+
+    u_int32_t numLayers = m -> numLayers;
+
+    for(int i = 0; i < numLayers - 1; i++) {
+        if(m -> weights[i].sizex != g -> weights[i].sizex || m -> weights[i].sizey != g -> weights[i].sizey) {
+            return false;
+        }
+
+        int sizex = m -> weights[i].sizex;
+        int sizey = m -> weights[i].sizey;
+
+        for(int j = 0; j < sizex; j++) {
+            for(int k = 0; k < sizey; k++) {
+                m -> weights[i].data[j][k] += (g -> weights[i].data[j][k] * rate);
+            }
+        }
+    }
+
+    for(int i = 0; i < numLayers - 1; i++) {
+        if(m -> biases[i].size != g -> biases[i].size) {
+            return false;
+        }
+
+        int size = m -> biases[i].size;
+
+        for(int j = 0; j < size; j++) {
+            m -> biases[i].data[j] += (g -> biases[i].data[j] * rate);
+        }
+    }
+
+    return true;
+}
