@@ -16,7 +16,7 @@ int main() {
     }
 
     uint32_t numLayers = 4;
-    u_int32_t* layersizes = (u_int32_t*)malloc(4 * sizeof(uint32_t));
+    uint32_t* layersizes = (uint32_t*)malloc(4 * sizeof(uint32_t));
 
     layersizes[0] = 2;
     layersizes[1] = 3;

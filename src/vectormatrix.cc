@@ -18,3 +18,18 @@ void multiply(matrix* m, vector* v, vector* r) {
     r -> size = m -> sizey;
     r -> data = rdata;
 }
+
+void multiplyT(matrix* m, vector* v, vector* r) {
+    if(v -> size != m -> sizey) return;
+
+    double* rdata = (double*)calloc(m -> sizex, sizeof(double));
+
+    for(int x = 0; x < m -> sizex; x++) {
+        for(int y = 0; y < m -> sizey; y++) {
+            rdata[x] += v -> data[y] * m -> data[x][y];
+        }
+    }
+
+    r -> size = m -> sizey;
+    r -> data = rdata;
+}

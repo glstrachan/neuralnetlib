@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 struct trainingData {
-    u_int32_t size;
+    uint32_t size;
     vector* inputs;
     vector* outputs;
 

@@ -18,3 +18,5 @@ struct matrix {
 };
 
 void multiply(matrix* m, vector* v, vector * r);
+
+void multiplyT(matrix* m, vector* v, vector * r); // Multiply by transpose

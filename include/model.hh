@@ -10,15 +10,19 @@ struct model {
     matrix* weights;
     vector* biases;
 
-    model(uint32_t numLayers, u_int32_t* layersizes);
+    model(uint32_t numLayers, uint32_t* layersizes);
+    model(model* m); // Copy constructor for gradients
 
-    void initWeights(void (*init)(matrix* m, uint32_t seed), u_int32_t seed);
+    void initWeights(void (*init)(matrix* m, uint32_t seed), uint32_t seed);
     void initBiases(double d); // Sets all biases to a value
 
-    void evaluate(double (*activation)(double z, double a)); // a is an optional paramater
+    void evaluate(double (*activation)(double z, double a, double prime)); // a is an optional paramater
 
     bool setInput(vector* input); // bool indicates success
     void getOutput(vector*& output);
+
+    void zero(); // Zeroing for gradients
+    bool addModel(model* m, double scale); // Mainly for gradients
 
     // Data Scheme
     // First int (N) is number of layers
