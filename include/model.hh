@@ -34,6 +34,4 @@ struct model {
 
     bool save(char* name); 
     bool load(char* name); // bool indicates success
-
-    friend std::ostream& operator<<(std::ostream& os, const model& m);
 };

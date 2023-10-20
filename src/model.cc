@@ -283,18 +283,3 @@ bool model::load(char* name) {
 
     return true;
 }
-
-std::ostream& operator<<(std::ostream& os, const model& m)
-{
-    for(int i = 0; i < m.numLayers - 1; i ++) {
-        for(int x = 0; x < m.weights[i].sizex; x++) {
-            for(int y = 0; y < m.weights[i].sizey; y++) {
-               printf("%5.2f ", m.weights[i].data[x][y]);
-            }
-            std::cout << "\n";
-        }
-        std::cout << "\n";
-    }
-
-    return os;
-}

@@ -1,5 +1,4 @@
 #include "model.hh"
-#include <iostream>
 
 int main() {
     uint32_t datasize = 2;

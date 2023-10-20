@@ -1,8 +1,5 @@
 #include "vectormatrix.hh"
 
-#include "stdio.h" // Remove this later
-#include <iostream>
-
 vector::vector(uint32_t size, double* data) : size(size), data(data) {}
 
 matrix::matrix(uint32_t sizex, uint32_t sizey, double** data) : sizex(sizex), sizey(sizey), data(data) {}
