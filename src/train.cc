@@ -1,6 +1,7 @@
 #include "train.hh"
+#include <iostream>
 
-bool train(model* m, trainingData* data, double (*activation)(double z, double a, double prime), double (*cost)(double expected, double actual, bool prime), uint32_t batchSize, uint32_t epochs, double rate, uint32_t seed) {
+bool train(model* m, trainingData* data, double (*activation)(double z, double a, bool prime), double (*cost)(double expected, double actual, bool prime), uint32_t batchSize, uint32_t epochs, double rate, uint32_t seed) {
     if(batchSize > data -> size || rate <= 0.0) return false;
 
     srand(seed);
@@ -8,7 +9,7 @@ bool train(model* m, trainingData* data, double (*activation)(double z, double a
     for(int i = 0; i < epochs; i++) {
         std::vector<int> indices;
 
-        for(int j = 0; j < data -> size; i++) {
+        for(int j = 0; j < data -> size; j++) {
             indices.push_back(j);
         }
 
@@ -17,7 +18,7 @@ bool train(model* m, trainingData* data, double (*activation)(double z, double a
         // Extra training data will be appended to other minibatches
         uint32_t batches = (uint32_t)std::floor((double)(data -> size) / (double)batchSize);
         uint32_t newBatchSize = (uint32_t)std::floor((double)(data -> size) / (double)batches);
-
+        
         for(int j = 0; j < batches; j++) {
             std::vector<int> batchIndices;
 
@@ -66,9 +67,9 @@ bool train(model* m, trainingData* data, double (*activation)(double z, double a
                 }
 
                 // Compute hidden Layer error
-                
                 for(int l = m -> numLayers - 2; l >= 0; l--) {
-                    vector* reverse;
+                    vector* reverse = (vector*)malloc(sizeof(vector));
+
                     multiplyT(&(m -> weights[l]), &errors.layers[l + 1], reverse);
 
                     for(int n = 0; n < errors.layers[l].size; n++) {
@@ -95,8 +96,8 @@ bool train(model* m, trainingData* data, double (*activation)(double z, double a
                 grad.addModel(&subGrad, 1.0 / (double)miniBatches[j].size()); // Add the scaled subgradient onto the gradient
             }
             
-            m -> addModel(&grad, rate); // Model = gradient * rate
-            // Show the cost of the current model to the user
+            m -> addModel(&grad, -rate); // Model = gradient * rate
+            // TODO: Show the cost of the current model to the user (on a validation set)
         }
     }
 

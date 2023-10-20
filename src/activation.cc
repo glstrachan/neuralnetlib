@@ -11,9 +11,9 @@ double tanh(double z, double a, bool prime) {
 }
 
 double ReLU(double z, double a, bool prime) {
-    return prime ? z > 0.0 ? 1.0 : 0.0 : z > 0.0 ? z : 0.0;
+    return prime ? (z > 0.0 ? 1.0 : 0.0) : (z > 0.0 ? z : 0.0);
 }
 
 double leakyReLU(double z, double a, bool prime) {
-    return prime ? z > 0.0 ? a : 0.0 : z > 0.0 ? z : a * z;
+    return prime ? (z > 0.0 ? 1.0 : a) : (z > 0.0 ? z : a * z);
 }

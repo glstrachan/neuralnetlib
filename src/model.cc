@@ -85,7 +85,7 @@ void model::initBiases(double d) {
     }
 }
 
-void model::evaluate(double (*activation)(double z, double a, double prime)) {
+void model::evaluate(double (*activation)(double z, double a, bool prime)) {
     for(int i = 1; i < numLayers; i++) {
          multiply(&weights[i - 1], &layers[i - 1], &layers[i]);
 
@@ -117,7 +117,7 @@ void model::zero() {
         } 
     }
 
-    for(int i = 0; i < numLayers; i++) {
+    for(int i = 0; i < numLayers - 1; i++) {
         for(int j = 0; j < biases[i].size; j++) {
             biases[i].data[j] = 0.0;
         }
@@ -282,4 +282,19 @@ bool model::load(char* name) {
     }
 
     return true;
+}
+
+std::ostream& operator<<(std::ostream& os, const model& m)
+{
+    for(int i = 0; i < m.numLayers - 1; i ++) {
+        for(int x = 0; x < m.weights[i].sizex; x++) {
+            for(int y = 0; y < m.weights[i].sizey; y++) {
+               printf("%5.2f ", m.weights[i].data[x][y]);
+            }
+            std::cout << "\n";
+        }
+        std::cout << "\n";
+    }
+
+    return os;
 }

@@ -4,6 +4,8 @@
 #include "initializer.hh"
 #include "activation.hh"
 
+#include <iostream>
+
 struct model {
     uint32_t numLayers;
     vector* layers;
@@ -16,7 +18,7 @@ struct model {
     void initWeights(void (*init)(matrix* m, uint32_t seed), uint32_t seed);
     void initBiases(double d); // Sets all biases to a value
 
-    void evaluate(double (*activation)(double z, double a, double prime)); // a is an optional paramater
+    void evaluate(double (*activation)(double z, double a, bool prime)); // a is an optional paramater
 
     bool setInput(vector* input); // bool indicates success
     void getOutput(vector*& output);
@@ -32,4 +34,6 @@ struct model {
 
     bool save(char* name); 
     bool load(char* name); // bool indicates success
+
+    friend std::ostream& operator<<(std::ostream& os, const model& m);
 };

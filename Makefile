@@ -13,5 +13,8 @@ modeltest:
 trainingdatatest:
 	$(CC) $(FLAGS) tests/trainingdatatest.cc src/trainingdata.cc src/vectormatrix.cc -o tests/trainingdatatest
 
+traintest:
+	$(CC) $(FLAGS) tests/traintest.cc src/activation.cc src/cost.cc src/initializer.cc src/model.cc src/train.cc src/trainingdata.cc src/vectormatrix.cc -o tests/traintest
+
 clean:
 	rm tests/multiplytest tests/activationtest tests/modeltest tests/trainingdatatest
