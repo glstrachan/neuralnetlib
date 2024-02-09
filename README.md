@@ -5,7 +5,9 @@
 
 ## Introduction
 
-Neural networks are often perceived as complex and intimidating, especially for beginners, primarily due to the specialized terminology and the lack of straightforward explanations. This library aims to demystify neural networks by providing a user-friendly C++ library that simplifies the process of working with neural networks, requiring minimal understanding of their underlying mechanics.
+Neural networks are almost always obscured for beginners because of the terminology used and lack of simplistic explanations.
+
+This library aims to make a neural network library that is very easy to use natively in C++ and requires little to no understanding of the underlying mechanics of a neural network.
 
 ## Key Features
 
