@@ -80,10 +80,10 @@ int main() {
     m.initWeights(HeInit, 834939);
 
     // Do training
-    //train(&m, &data, &vData, leakyReLU, quadraticCost, trainingSize / 70, 5000, 0.05, 9699);
+    train(&m, &data, &vData, leakyReLU, quadraticCost, trainingSize / 70, 5000, 0.05, 9699);
 
-    char* name = "save.csv";
-    m.load(name);
+    // char* name = "save.csv";
+    // m.load(name);
 
     // Find out model cost
     double avgcost = 0.0;
@@ -113,7 +113,24 @@ int main() {
 
     std::cout << avgcost << std::endl;
 
-    m.save(name);
+    for (int i = 0; i < trainingSize; i++) {
+        free(inputs[i].data);  
+        free(outputs[i].data);
+    }
+
+    free(inputs);
+    free(outputs);
+
+    for (int i = 0; i < validationSize; i++) {
+        free(vInputs[i].data);  
+        free(vOutputs[i].data);
+    }
+
+    free(vInputs);
+    free(vOutputs);
+    free(layersizes);
+
+    // m.save(name);
     
     return 0;
 }
